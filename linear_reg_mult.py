@@ -25,7 +25,7 @@ Y = np.reshape(Y, (np.size(Y), 1))
 X = [np.insert(row, 0, 1) for row in data.drop(["price"], axis=1).values]
 X = np.reshape(X, (line, col))
 
-def somme(X, Y, theta, c, size, i):
+def hypothese(X, Y, theta, c, size, i):
     a = 0
     for j in range(0, size):
         a += (theta[j] * X[i][j])
@@ -33,10 +33,10 @@ def somme(X, Y, theta, c, size, i):
     a = a * X[i][c]
     return (a)
 
-def cost(X, theta, Y, c, alpha, size):
+def somme(X, theta, Y, c, alpha, size):
     a = 0
     for i in range(0, line):
-        a += somme(X, Y, theta, c, size, i)
+        a += hypothese(X, Y, theta, c, size, i)
     return (theta[c] - ((alpha) * a))
 
 def linear_reg(X, theta, Y, alpha, num_iters, size):
@@ -45,7 +45,7 @@ def linear_reg(X, theta, Y, alpha, num_iters, size):
         if (i % 100 == 0):
             print(i)
         for j in range(0, size):
-            temp[j] = cost(X, theta, Y, j, alpha, size)
+            temp[j] = somme(X, theta, Y, j, alpha, size)
         for j in range(0, size):
             theta[j] = temp[j]
     return (theta)
